@@ -1,7 +1,3 @@
-def url() { 
-    script {  
-        return sh(script : 'service.sh', returnStdout: true).trim()
-    }}
 pipeline {
    agent { label 'kopserver'
 }
@@ -15,9 +11,14 @@ pipeline {
             git 'https://github.com/shaikshareefmastan/apipro.git'
          }
        }
-
+         stage('test'){
+                 script{
+                              sh 'kubectl get service -l app=apiservice | awk '{ print $4 }' | sed -n '2 p'  > /tmp/aa'
+                                           def VAR1 = readFile('/tmp/aa')
+			}
+				}
+  
       	stage('Build collection') {
-      
                         
             when {
                          expression { params.collection }
@@ -25,7 +26,7 @@ pipeline {
          steps {
 	            sh "kubectl cp collection.json api-pod:/etc/newman "
                     sh "kubectl exec api-pod -- newman run collection.json -r htmlextra --reporter-htmlextra-export /var/www/html/collection.html"
-                     sh "echo http://aa28576b937c24b17bb7e6f9dccd73cd-236618222.ap-south-1.elb.amazonaws.com/collection.html"
+                     sh "echo http://${VAR1}/collection.html"
 
                     
                 }
@@ -38,7 +39,7 @@ pipeline {
                      
                     sh "kubectl cp collection1.json api-pod:/etc/newman "
                     sh "kubectl exec api-pod -- newman run collection1.json -r htmlextra --reporter-htmlextra-export /var/www/html/collection1.html"
-                    sh "echo http://aa28576b937c24b17bb7e6f9dccd73cd-236618222.ap-south-1.elb.amazonaws.com/collection1.html"
+                    sh "echo http://${VAR1}/collection1.html"
                }
            
      }
