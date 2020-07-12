@@ -1,4 +1,4 @@
-def url = sh (script: 'kubectl get service -l app=apiservice | awk '{ print $4 }' | sed -n '2 p'')
+def url = sh (script: 'kubectl get service -l app=apiservice | awk { print $4 } | sed -n 2 p')
 pipeline {
    agent { label 'kopserver'
 }
