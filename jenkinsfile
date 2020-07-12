@@ -12,12 +12,14 @@ pipeline {
          }
        }
          stage('test'){
+                steps{
                  script{
                               sh 'kubectl get service -l app=apiservice | awk '{ print $4 }' | sed -n '2 p'  > /tmp/aa'
                                            def VAR1 = readFile('/tmp/aa')
 			}
 				}
   
+}
       	stage('Build collection') {
                         
             when {
