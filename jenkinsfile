@@ -11,8 +11,6 @@ pipeline {
             git 'https://github.com/shaikshareefmastan/apipro.git'
          }
        }
-      stage('parallel build'){
-           parallel {
 
       	stage('Build collection') {
       
@@ -40,8 +38,6 @@ pipeline {
                     sh "echo http://${url}/collection1.html"
                }
            
-         }
-       }
      }
    }
 }
