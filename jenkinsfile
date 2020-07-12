@@ -14,7 +14,7 @@ pipeline {
          stage('test'){
                 steps{
                  script{
-                              sh "service.sh"
+                              sh " sh service.sh "
 			}
 		}
   
