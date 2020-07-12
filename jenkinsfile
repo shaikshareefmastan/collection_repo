@@ -42,7 +42,7 @@ pipeline {
                      
                     sh "kubectl cp collection1.json api-pod:/etc/newman "
                     sh "kubectl exec api-pod -- newman run collection1.json -r htmlextra --reporter-htmlextra-export /var/www/html/collection1.html"
-                    sh "echo http://"${cmd}"/collection1.html"
+                    echo "http://${cmd}/collection1.html"
                }
            
      }
