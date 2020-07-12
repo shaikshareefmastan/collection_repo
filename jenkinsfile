@@ -1,6 +1,6 @@
 def url() { 
     script {  
-        return sh(script : 'kubectl get service -l app=apiservice | awk '{ print $4 }' | sed -n '2 p'', returnStdout: true).trim()
+        return sh(script : 'service.sh', returnStdout: true).trim()
     }}
 pipeline {
    agent { label 'kopserver'
