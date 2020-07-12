@@ -8,7 +8,7 @@ pipeline {
    stages {
       stage('git checkout') {
          steps {
-            git 'https://github.com/shaikshareefmastan/apipro.git'
+            git 'https://github.com/shaikshareefmastan/collection_repo.git'
          }
        }
          stage('test'){
