@@ -17,11 +17,11 @@ pipeline {
                               def var = awk '{ print $4 }'
                               def var1 =  sed -n '2 p' 
                               sh 'kubectl get service -l app=apiservice | ${var} | ${var1}  > /tmp/aa'
-                                           def VAR1 = readFile('/tmp/aa')
+                              def VAR1 = readFile('/tmp/aa')
 			}
-				}
+		}
   
-}
+           }
       	stage('Build collection') {
                         
             when {
