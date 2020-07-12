@@ -31,7 +31,7 @@ pipeline {
                                 echo "${cmd}"
 	            sh "kubectl cp collection.json api-pod:/etc/newman "
                     sh "kubectl exec api-pod -- newman run collection.json -r htmlextra --reporter-htmlextra-export /var/www/html/collection.html"
-                    echo "${cmd}"
+                    echo "http://${cmd}/collection.json"
 
                     }
                 }
@@ -41,12 +41,13 @@ pipeline {
                                   expression { params.collection1 }
                              }
            steps {
+              script{
                      
                     sh "kubectl cp collection1.json api-pod:/etc/newman "
                     sh "kubectl exec api-pod -- newman run collection1.json -r htmlextra --reporter-htmlextra-export /var/www/html/collection1.html"
                     echo "http://${cmd}/collection1.html"
                }
-           
+           }
      }
    }
 }
