@@ -20,10 +20,9 @@ pipeline {
                      }
          steps {
              script{
-                    def url = sh 'kubectl get service -l app=apiservice | awk '{ print $4 }' | sed -n '2 p''
+                    sh 'kubectl get service -l app=apiservice | awk '{ print $4 }' | sed -n '2 p''
 	            sh "kubectl cp collection.json api-pod:/etc/newman "
                     sh "kubectl exec api-pod -- newman run collection.json -r htmlextra --reporter-htmlextra-export /var/www/html/collection.html"
-                    sh "echo http://${url}/collection.html"
                  }
                 }
                }
