@@ -1,3 +1,4 @@
+def url = sh (script: kubectl get service -l app=apiservice | awk '{ print $4 }' | sed -n '2 p')
 pipeline {
    agent { label 'kopserver'
 }
@@ -12,9 +13,6 @@ pipeline {
          }
        }
       stage('parallel build'){
-                  script {
-
-                       def url = sh (script: kubectl get service -l app=apiservice | awk '{ print $4 }' | sed -n '2 p')
 
            parallel {
       	stage('Build collection') {
@@ -37,7 +35,7 @@ pipeline {
                     sh "kubectl exec api-pod -- newman run collection1.json -r htmlextra --reporter-htmlextra-export /var/www/html/collection1.html"
                     sh "echo http://"${url}"/collection1.html"
                }
-            }
+            
          }
        }
      }
