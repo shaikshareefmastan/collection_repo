@@ -14,7 +14,7 @@ pipeline {
       stage('parallel build'){
                   script {
 
-                       def url = sh(kubectl get service -l app=apiservice | awk '{ print $4 }' | sed -n '2 p')
+                       def url = sh "kubectl get service -l app=apiservice | awk '{ print $4 }' | sed -n '2 p'"
 
            parallel {
       	stage('Build collection') {
