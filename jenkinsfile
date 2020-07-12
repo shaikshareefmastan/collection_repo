@@ -1,3 +1,4 @@
+def cmd 
 pipeline {
    agent { label 'kopserver'
 }
@@ -16,6 +17,7 @@ pipeline {
                  script{
                               sh "pwd"
                               sh " sh service.sh "
+			      cmd = readFile '/tmp/aa'
                            }
 		}
   
@@ -27,7 +29,6 @@ pipeline {
                      }
          steps {
              script{
-                        def cmd = readFile '/tmp/aa'
 	            sh "kubectl cp collection.json api-pod:/etc/newman "
                     sh "kubectl exec api-pod -- newman run collection.json -r htmlextra --reporter-htmlextra-export /var/www/html/collection.html"
                     echo "http://${cmd}/collection.html"
@@ -41,7 +42,6 @@ pipeline {
                              }
            steps {
               script{
-                     def cmd = readFile '/tmp/aa'
                     sh "kubectl cp collection1.json api-pod:/etc/newman "
                     sh "kubectl exec api-pod -- newman run collection1.json -r htmlextra --reporter-htmlextra-export /var/www/html/collection1.html"
                     echo "http://${cmd}/collection1.html"
