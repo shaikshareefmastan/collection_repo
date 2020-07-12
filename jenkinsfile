@@ -17,6 +17,7 @@ pipeline {
                               sh "pwd"
                               sh " sh service.sh "
                             def cmd = readFile '/tmp/aa' 
+                                echo "${cmd}"
 			}
 		}
   
@@ -29,7 +30,7 @@ pipeline {
          steps {
 	            sh "kubectl cp collection.json api-pod:/etc/newman "
                     sh "kubectl exec api-pod -- newman run collection.json -r htmlextra --reporter-htmlextra-export /var/www/html/collection.html"
-                    echo "http://${cmd}/collection.html"
+                    echo "${cmd}"
 
                     
                 }
