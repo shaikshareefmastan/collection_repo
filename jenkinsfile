@@ -2,6 +2,9 @@ def cmd
 pipeline {
    agent { label 'kopserver'
 }
+  options {
+        ansiColor('xterm')
+    }
     parameters {
                  booleanParam(defaultValue: false, description: '', name: 'collection')
                  booleanParam(defaultValue: false, description: '', name: 'collection1')
