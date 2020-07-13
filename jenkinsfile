@@ -16,7 +16,8 @@ pipeline {
                 steps{
                  script{
                               sh "pwd"
-			      cmd = sh " sh service.sh "
+			      sh " sh service.sh "
+			      cmd = readfile "/tmp/aa"
                            }
 		}
   
