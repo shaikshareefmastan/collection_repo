@@ -17,7 +17,7 @@ pipeline {
                  script{
                               sh "pwd"
 			      sh " sh service.sh "
-			      cmd = readfile '/tmp/aa'
+			      cmd = readFile '/tmp/aa'
                            }
 		}
   
