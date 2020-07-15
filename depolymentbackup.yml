@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    app: apiserver
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: apiserver
+  template:
+    metadata:
+      labels:
+        app: apiserver
+    spec:
+      containers:
+      - name: apiserver1
+        image: shareefmastan/postman:1.1
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+  labels:
+    app: apiserver
+spec:
+  selector:
+    app: apiserver
+  type: LoadBalancer
+  ports:
+  - nodePort: 31000
+    port: 80
+    targetPort: 80
+
