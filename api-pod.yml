@@ -17,6 +17,8 @@ metadata:
   name: my-service
   labels:
     app: apiservice
+  annotations:
+    service.beta.kubernetes.io/oci-load-balancer-internal: "true"
 spec:
   selector:
     app: apiserver
