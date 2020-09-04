@@ -1,6 +1,6 @@
 def cmd 
 pipeline {
-   agent { label 'kopserver'
+   agent { label 'kubeserver'
 }
   options {
         ansiColor('xterm')
