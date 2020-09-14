@@ -10,14 +10,14 @@ spec:
      image: shareefmastan/seleniumstandalone-debug_vnc:1.0
      ports:
      - name: seleniumhubport
-	   containerPort: 4444
-	 - name: vncserverport
-	   containerport: 5900
-	   volumeMounts:
-       - name: mountpoint
-         mountPath: /dev/shm
-	volumes:
-    - name: redis-storage
+       containerPort: 4444
+     - name: vncserverport
+       containerport: 5900
+    volumeMounts:
+     - name: mountpoint
+       mountPath: /dev/shm
+    volumes:
+    - name: mountpath 
       hostPath:
         path: /dev/shm	  
 ---
@@ -39,4 +39,4 @@ spec:
     targetPort: 4444
   - nodePort: 31300
     port: 5900
-    targetPort: 5900	
+    targetPort: 5900
