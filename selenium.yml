@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: selenium-pod
+  labels:
+    app: seleniumhub
+spec:
+   containers:
+   - name: seleniumhubcontainer
+     image: shareefmastan/seleniumstandalone-debug_vnc:1.0
+     ports:
+     - name: seleniumhubport
+	   containerPort: 4444
+	 - name: vncserverport
+	   containerport: 5900
+	   volumeMounts:
+       - name: mountpoint
+         mountPath: /dev/shm
+	volumes:
+    - name: redis-storage
+      hostPath:
+        path: /dev/shm	  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: seleniumservice
+  labels: 
+    app: seleniumhub
+  annotations:
+    service.beta.kubernetes.io/oci-load-balancer-internal: "true"
+spec:
+  selector:
+    app: seleniumhub
+  type: LoadBalancer
+  ports:
+  - nodePort: 31200
+    port: 4444
+    targetPort: 4444
+  - nodePort: 31300
+    port: 5900
+    targetPort: 5900	
